@@ -23,7 +23,7 @@ function App() {
       socket.removeAllListeners('message');
       socket.disconnect();
     };
-  }, [socket]);
+  }, []);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>): void{
     if(e.target && typeof e.target.value === 'string'){
