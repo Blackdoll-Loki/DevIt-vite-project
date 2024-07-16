@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
+const socket = io();
+
+
 function App() {
   const [input, setInput] = useState('');
   const [message, setMessage] = useState('');
   const socket = io();
-  socket.on('connect', () => {
-    console.log('Socket.IO connection established');
-  });
 
   useEffect(()=>{
     socket.once('connect', () => {
