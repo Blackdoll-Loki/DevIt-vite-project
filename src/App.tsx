@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
 function App() {
@@ -9,9 +9,21 @@ function App() {
     console.log('Socket.IO connection established');
   });
 
-  socket.addEventListener('message', (event: MessageEvent) => {
-    setMessage(event.data)
-  });
+  useEffect(()=>{
+    socket.once('connect', () => {
+      console.log('Socket.IO connection established');
+    });
+
+    socket.on('message', (event: MessageEvent) => {
+      const data = JSON.parse(event.data); 
+      setMessage(data);
+    });
+
+    return () => {
+      socket.removeAllListeners('message');
+      socket.disconnect();
+    };
+  }, [socket]);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>): void{
     if(e.target && typeof e.target.value === 'string'){
