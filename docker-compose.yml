@@ -1,0 +1,22 @@
+name: 'drv1'
+
+services:
+  node: 
+    #   image: app-drv1-node:latest
+    build: 
+      context: ./docker/node
+      args: 
+      - UID=1000
+      - GID=1000
+      - USER_NAME=dev
+    user: 1000:1000
+    volumes:
+      - ./sourse:/app
+    ports:
+      - 3000:3000
+      - 3001:3001
+
+
+      
+      
+  
